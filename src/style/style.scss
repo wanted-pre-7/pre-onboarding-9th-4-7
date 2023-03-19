@@ -1,0 +1,79 @@
+@use "./reset";
+
+// page
+.page-container {
+  width: 100%;
+  background: #eaebf0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+// table
+.table-wrapper {
+  width: 100vw;
+  background: #ffffff;
+  border: 1px solid #d1d6e3;
+  font-size: 15px;
+  color: #363f47;
+
+  table {
+    width: inherit;
+    thead {
+      height: 50px;
+      background: #f8f9fb;
+      border-bottom: 1px solid #d1d6e3;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    th,
+    td {
+      text-align: left;
+      vertical-align: middle;
+      &:nth-child(1),
+      &:nth-child(2),
+      &:nth-child(4),
+      &:nth-child(6) {
+        width: 20%;
+      }
+      &:nth-child(3),
+      &:nth-child(5) {
+        width: 10%;
+      }
+      &:first-child {
+        padding-left: 80px;
+      }
+      &:last-child {
+        padding-right: 80px;
+      }
+    }
+    tbody {
+      tr {
+        border-bottom: 1px solid #d1d6e3;
+      }
+    }
+    td {
+      height: 50px;
+      color: #768390;
+      font-weight: 400;
+    }
+  }
+}
+
+// badge
+.badge {
+  width: 50px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: 500;
+  background: #d1fae4;
+  color: #196b51;
+  &.inactive {
+    background: #fdf3c7;
+    color: #9a501d;
+  }
+}
