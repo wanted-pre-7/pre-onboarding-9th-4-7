@@ -6,3 +6,8 @@ export interface IOrderData {
   customer_name: string;
   currency: string;
 }
+
+export interface IPropsToOrderAdmin {
+  headers: string[];
+  items: IOrderData[];
+}

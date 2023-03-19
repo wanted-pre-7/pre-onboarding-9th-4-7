@@ -1,4 +1,6 @@
+import OrderAdmin from "./pages/OrderAdmin";
+
 const App = () => {
-  return <div>App</div>;
+  return <OrderAdmin />;
 };
 export default App;
