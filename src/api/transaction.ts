@@ -1,9 +1,9 @@
 import type { AxiosResponse } from "axios";
-import type { IInfo } from "../types/transaction";
+import type { ITransaction } from "../types/transaction";
 import client from "./axios";
 
 export const getTransactionData = async () => {
-  const { data }: AxiosResponse<IInfo[]> = await client({
+  const { data }: AxiosResponse<ITransaction[]> = await client({
     method: "get",
   });
 

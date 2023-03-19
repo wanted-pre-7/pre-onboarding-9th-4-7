@@ -1,4 +1,4 @@
-export interface IInfo {
+export interface ITransaction {
   id: number;
   transaction_time: string;
   status: boolean;
