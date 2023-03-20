@@ -1,6 +1,6 @@
-import type { dataResponse } from "../../types";
+import type { IDataResponse } from "../../types";
 
-const OrderTable = ({ data }: { data: dataResponse[] }) => {
+const OrderTable = ({ data }: { data: IDataResponse[] }) => {
   return (
     <div>
       <table>
