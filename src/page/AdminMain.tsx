@@ -1,14 +1,12 @@
-import { getOrderData } from "../api/getOrderData";
-import { useQuery } from "@tanstack/react-query";
+import OrderTable from "../components/table/OrderTable";
 
 const AdminMain = () => {
-  const { isLoading, data } = useQuery(["orderData"], getOrderData, {
-    retry: 0,
-    refetchInterval: 5000,
-    refetchIntervalInBackground: true,
-  });
-  console.log(data);
-  return <div>hi</div>;
+  return (
+    <div>
+      <h1>스위치원</h1>
+      <OrderTable />
+    </div>
+  );
 };
 
 export default AdminMain;
