@@ -11,18 +11,15 @@ const Table = ({ headers, items }: IPropsToOrderAdmin) => {
     searchParams.get("page") === null || 0
       ? 1
       : Number(searchParams.get("page"));
-
   const name = searchParams.get("name");
 
-  const nameFilteredItems =
-    name === null
-      ? items
-      : items.filter((item) =>
-          item.customer_name.toLowerCase().includes(name as string),
-        );
-
-  const offset = (pageNum - 1) * LIMIT;
   const totalPageCount = Math.ceil(items.length / LIMIT);
+  const offset = (pageNum - 1) * LIMIT;
+
+  const slicedItems = items.slice(offset, offset + LIMIT);
+  const filteredItems = slicedItems.filter((item) =>
+    item.customer_name.toLowerCase().includes(name?.toLowerCase() as string),
+  );
 
   return (
     <>
@@ -37,20 +34,16 @@ const Table = ({ headers, items }: IPropsToOrderAdmin) => {
           </thead>
 
           <tbody>
-            {nameFilteredItems
-              .slice(offset, offset + LIMIT)
-              .map((item, idx) => (
-                <tr key={idx}>
-                  {headers.map((header) => (
-                    <td key={header + idx}>
-                      {/* todo : fix type error */}
-                      {header === "status"
-                        ? String(item[header])
-                        : item[header]}
-                    </td>
-                  ))}
-                </tr>
-              ))}
+            {filteredItems.map((item, idx) => (
+              <tr key={idx}>
+                {headers.map((header) => (
+                  <td key={header + idx}>
+                    {/* todo : fix type error */}
+                    {String(item[header])}
+                  </td>
+                ))}
+              </tr>
+            ))}
           </tbody>
         </table>
       </main>
