@@ -1,3 +1,5 @@
+import { MdExpandMore } from "react-icons/md";
+import { useSearchParams } from "react-router-dom";
 import type { Data } from "../types";
 import Badge from "./Badge";
 
@@ -14,6 +16,13 @@ const Table = ({ data }: Props) => {
     "가격",
     "주문상태",
   ];
+  const [searchParams, setSearchParams] = useSearchParams();
+  const current = searchParams.get("sort");
+  const handleSort = (category: string) => {
+    if (current === category) searchParams.set("sort", "default");
+    else searchParams.set("sort", category);
+    setSearchParams(searchParams);
+  };
 
   return (
     <div className="table-wrapper">
@@ -21,7 +30,21 @@ const Table = ({ data }: Props) => {
         <thead>
           <tr>
             {headers.map((el, idx) => (
-              <th key={idx}>{el}</th>
+              <th key={idx}>
+                {el === "주문번호" || el === "거래시간" ? (
+                  <button className="sort-button">
+                    {el}
+                    <MdExpandMore
+                      onClick={() => handleSort(el)}
+                      className={
+                        current === el ? "sort-icon" : "sort-icon inactive"
+                      }
+                    />
+                  </button>
+                ) : (
+                  el
+                )}
+              </th>
             ))}
           </tr>
         </thead>

@@ -9,6 +9,7 @@ const Main = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = searchParams.get("page");
   const status = searchParams.get("status");
+  const sort = searchParams.get("sort");
   const firstIdx = 50 * (Number(currentPage) - 1);
   const lastIdx = firstIdx + 50;
 
@@ -21,11 +22,17 @@ const Main = () => {
     [query],
   );
 
-  if (status === "완료") {
-    data = data?.filter((el) => el.status);
-  } else if (status === "미완료") {
-    data = data?.filter((el) => !el.status);
-  }
+  if (status === "완료") data = data?.filter((el) => el.status);
+  else data = data?.filter((el) => !el.status);
+
+  if (sort === "주문번호") data = data?.sort((a, b) => b.id - a.id);
+  else if (sort === "거래시간")
+    data = data?.sort(
+      (a, b) =>
+        new Date(b.transaction_time).getTime() -
+        new Date(a.transaction_time).getTime(),
+    );
+  else data = data?.sort((a, b) => a.id - b.id);
 
   const currentData = useMemo(() => data?.slice(firstIdx, lastIdx), [data]);
 
@@ -45,6 +52,7 @@ const Main = () => {
   useEffect(() => {
     searchParams.set("page", "1");
     searchParams.set("status", "전체");
+    searchParams.set("sort", "default");
     setSearchParams(searchParams);
   }, []);
 
