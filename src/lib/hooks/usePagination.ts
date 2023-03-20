@@ -11,13 +11,14 @@ interface UsePagination {
 const usePagination = (): UsePagination => {
   const [searchParams, setSearchParams] = useSearchParams();
   const page =
-    searchParams.get("page") == null || 0
-      ? 1
-      : Number(searchParams.get("page"));
+    !searchParams.get("page") || 0 ? 1 : Number(searchParams.get("page"));
+
+  const time = searchParams.get("time") ?? "default";
 
   const handleClick: HandleClick = (page) =>
     setSearchParams({
       page,
+      time,
     });
   const offset = (page - 1) * LIMIT;
 
