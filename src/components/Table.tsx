@@ -1,26 +1,56 @@
+import { useSearchParams } from "react-router-dom";
 import type { IPropsToOrderAdmin } from "../types";
+import Pagination from "./Pagination";
+
+const LIMIT = 50;
 
 const Table = ({ headers, items }: IPropsToOrderAdmin) => {
-  return (
-    <table>
-      <thead>
-        <tr>
-          {headers.map((header) => (
-            <th key={header}>{header}</th>
-          ))}
-        </tr>
-      </thead>
+  const [searchParams, setSearchParams] = useSearchParams();
 
-      <tbody>
-        {items.map((item, idx) => (
-          <tr key={idx}>
-            {headers.map((header) => (
-              <td key={header + idx}>{item[header]}</td> // todo : fix type error
+  const pageNum =
+    searchParams.get("page") === null || 0
+      ? 1
+      : Number(searchParams.get("page"));
+
+  const offset = (pageNum - 1) * LIMIT;
+  const totalPageCount = Math.ceil(items.length / LIMIT);
+
+  return (
+    <>
+      <main>
+        <table>
+          <thead>
+            <tr>
+              {headers.map((header) => (
+                <th key={header}>{header}</th>
+              ))}
+            </tr>
+          </thead>
+
+          <tbody>
+            {items.slice(offset, offset + LIMIT).map((item, idx) => (
+              <tr key={idx}>
+                {headers.map((header) => (
+                  <td key={header + idx}>
+                    {/* todo : fix type error */}
+                    {header === "status" ? String(item[header]) : item[header]}
+                  </td>
+                ))}
+              </tr>
             ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+          </tbody>
+        </table>
+      </main>
+
+      <footer>
+        <Pagination
+          totalPageCount={totalPageCount}
+          pageNum={pageNum}
+          searchParams={searchParams}
+          setPageNum={setSearchParams}
+        />
+      </footer>
+    </>
   );
 };
 
