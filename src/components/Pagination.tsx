@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import {
   MdOutlineFirstPage,
   MdOutlineKeyboardArrowLeft,
@@ -15,7 +15,14 @@ type Props = {
 const Pagination = ({ data }: Props) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const lastPage = useMemo(() => Math.ceil(data?.length / 50), [data]);
+
   const currentPage = searchParams.get("page");
+
+  useEffect(() => {
+    if (currentPage !== "1" && Number(currentPage) > lastPage)
+      searchParams.set("page", String(lastPage));
+    setSearchParams(searchParams);
+  }, [currentPage, lastPage]);
 
   const handleClick = (type: string) => {
     let page = "1";
