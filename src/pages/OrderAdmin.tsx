@@ -1,3 +1,4 @@
+import SearchInput from "../components/SearchInput";
 import Table from "../components/Table";
 import useFetchOrderData from "../hooks/useFetchOrderData";
 import type { IOrderData } from "../types";
@@ -12,7 +13,12 @@ const OrderAdmin = () => {
   const loadingUI = <div>데이터를 로딩 중입니다.</div>;
   if (isLoading) return loadingUI;
 
-  return <Table headers={headers} items={items} />;
+  return (
+    <>
+      <SearchInput />
+      <Table headers={headers} items={items} />
+    </>
+  );
 };
 
 export default OrderAdmin;

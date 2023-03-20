@@ -12,6 +12,15 @@ const Table = ({ headers, items }: IPropsToOrderAdmin) => {
       ? 1
       : Number(searchParams.get("page"));
 
+  const name = searchParams.get("name");
+
+  const nameFilteredItems =
+    name?.length === 0
+      ? items
+      : items.filter((item) =>
+          item.customer_name.toLowerCase().includes(name as string),
+        );
+
   const offset = (pageNum - 1) * LIMIT;
   const totalPageCount = Math.ceil(items.length / LIMIT);
 
@@ -28,16 +37,20 @@ const Table = ({ headers, items }: IPropsToOrderAdmin) => {
           </thead>
 
           <tbody>
-            {items.slice(offset, offset + LIMIT).map((item, idx) => (
-              <tr key={idx}>
-                {headers.map((header) => (
-                  <td key={header + idx}>
-                    {/* todo : fix type error */}
-                    {header === "status" ? String(item[header]) : item[header]}
-                  </td>
-                ))}
-              </tr>
-            ))}
+            {nameFilteredItems
+              .slice(offset, offset + LIMIT)
+              .map((item, idx) => (
+                <tr key={idx}>
+                  {headers.map((header) => (
+                    <td key={header + idx}>
+                      {/* todo : fix type error */}
+                      {header === "status"
+                        ? String(item[header])
+                        : item[header]}
+                    </td>
+                  ))}
+                </tr>
+              ))}
           </tbody>
         </table>
       </main>
