@@ -15,7 +15,7 @@ const Table = ({ headers, items }: IPropsToOrderAdmin) => {
   const name = searchParams.get("name");
 
   const nameFilteredItems =
-    name?.length === 0
+    name === null
       ? items
       : items.filter((item) =>
           item.customer_name.toLowerCase().includes(name as string),
