@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import {
+  MdOutlineFirstPage,
   MdOutlineKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
-  MdOutlineKeyboardDoubleArrowLeft,
-  MdOutlineKeyboardDoubleArrowRight,
+  MdOutlineLastPage,
 } from "react-icons/md";
 import { useSearchParams } from "react-router-dom";
 import type { Data } from "../types";
@@ -51,7 +51,7 @@ const Pagination = ({ data }: Props) => {
         disabled={Number(currentPage) === 1}
         className="arrow-button"
       >
-        <MdOutlineKeyboardDoubleArrowLeft />
+        <MdOutlineFirstPage />
       </button>
       <button
         onClick={() => handleClick("left")}
@@ -88,7 +88,7 @@ const Pagination = ({ data }: Props) => {
         disabled={Number(currentPage) === lastPage}
         className="arrow-button"
       >
-        <MdOutlineKeyboardDoubleArrowRight />
+        <MdOutlineLastPage />
       </button>
     </div>
   );
