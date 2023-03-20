@@ -23,7 +23,8 @@ const Main = () => {
   );
 
   if (status === "완료") data = data?.filter((el) => el.status);
-  else data = data?.filter((el) => !el.status);
+  else if (status === "미완료") data = data?.filter((el) => !el.status);
+  else data;
 
   if (sort === "주문번호") data = data?.sort((a, b) => b.id - a.id);
   else if (sort === "거래시간")
