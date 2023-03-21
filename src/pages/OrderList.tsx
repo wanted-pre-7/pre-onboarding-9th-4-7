@@ -12,10 +12,14 @@ const OrderList = () => {
   const status = searchParams.get("status");
   const customer_name = searchParams.get("customer_name");
   const page = searchParams.get("page");
+
+  const sortKey = searchParams.get("sortKey");
+  const sortDir = searchParams.get("sortDir");
+
   const currentParams = new URLSearchParams(searchParams.toString());
 
   const { data } = useQuery(
-    ["switchwon", status, customer_name, page],
+    ["switchwon", status, customer_name, page, sortKey, sortDir],
     getData,
     {
       refetchOnWindowFocus: false,
@@ -55,6 +59,16 @@ const OrderList = () => {
     setSearchParams(currentParams);
   };
 
+  const setSortConfig = (key: string) => {
+    if (sortKey && sortKey == key) {
+      currentParams.set("sortDir", sortDir === "asc" ? "desc" : "asc");
+    } else {
+      currentParams.set("sortKey", key);
+      currentParams.set("sortDir", "asc");
+    }
+    setSearchParams(currentParams);
+  };
+
   return (
     <div>
       <h2>주문 목록</h2>
@@ -64,7 +78,12 @@ const OrderList = () => {
         updateStatus={updateStatus}
         updateCustomerName={updateCustomerName}
       />
-      <OrderTable data={data.data} />
+      <OrderTable
+        data={data.data}
+        sortKey={sortKey ? sortKey : "id"}
+        sortDir={sortDir ? sortDir : "asc"}
+        setSortConfig={setSortConfig}
+      />
       <Pagination
         total={data.total}
         page={getPageNumber(page)}

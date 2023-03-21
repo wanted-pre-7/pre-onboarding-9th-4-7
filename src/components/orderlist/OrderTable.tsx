@@ -1,13 +1,33 @@
 import type { IDataResponse } from "../../types";
 
-const OrderTable = ({ data }: { data: IDataResponse[] }) => {
+const OrderTable = ({
+  data,
+  sortKey,
+  sortDir,
+  setSortConfig,
+}: {
+  data: IDataResponse[];
+  sortKey: string;
+  sortDir: string;
+  setSortConfig: (key: string) => void;
+}) => {
   return (
     <div>
       <table>
         <thead>
           <tr>
-            <th>주문번호</th>
-            <th>거래일 & 거래시간</th>
+            <th onClick={() => setSortConfig("id")}>
+              주문번호
+              {sortKey === "id" ? (
+                <span>{sortDir === "asc" ? " ⬇︎" : " ⬆︎"}</span>
+              ) : null}
+            </th>
+            <th onClick={() => setSortConfig("transaction_time")}>
+              거래일 & 거래시간
+              {sortKey === "transaction_time" ? (
+                <span>{sortDir === "asc" ? " ⬇︎" : " ⬆︎"}</span>
+              ) : null}
+            </th>
             <th>주문처리상태</th>
             <th>고객번호</th>
             <th>고객이름</th>

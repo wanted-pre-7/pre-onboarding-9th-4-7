@@ -7,7 +7,7 @@ import axiosInstance from "./instance";
 export const getData = async ({
   queryKey,
 }: QueryFunctionContext): Promise<IResponse> => {
-  const [_, status, customer_name, page] = queryKey;
+  const [_, status, customer_name, page, sortKey, sortDir] = queryKey;
 
   const today = "2023-03-08";
 
@@ -24,6 +24,18 @@ export const getData = async ({
         : true)
     );
   });
+
+  if (typeof sortKey === "string") {
+    filterData.sort((a: Record<string, any>, b: Record<string, any>) => {
+      if (a[sortKey] < b[sortKey]) {
+        return sortDir && sortDir === "desc" ? 1 : -1;
+      }
+      if (a[sortKey] > b[sortKey]) {
+        return sortDir && sortDir === "desc" ? -1 : 1;
+      }
+      return 0;
+    });
+  }
 
   return {
     data: filterData.slice(startPageNumber, getEndNumber(startPageNumber)),
