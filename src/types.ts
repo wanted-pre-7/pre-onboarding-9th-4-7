@@ -12,9 +12,6 @@ export interface IOrderData {
 export interface IPropsTable {
   headers: string[];
   items: IOrderData[];
-  name?: string | null;
-  offset: number;
-  status?: string | null;
 }
 
 export interface IPropsTableHeader {

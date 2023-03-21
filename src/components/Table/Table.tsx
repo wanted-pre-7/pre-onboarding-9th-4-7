@@ -1,19 +1,7 @@
-import { LIMIT } from "../../constants";
 import type { IPropsTable } from "../../types";
 import TableHeader from "./TableHeader";
 
-const Table = ({ headers, items, name, offset, status }: IPropsTable) => {
-  let slicedItems = items.slice(offset, offset + LIMIT);
-  if (status) {
-    slicedItems = slicedItems.filter(
-      (v) => v.status === (status === "True" ? true : false),
-    );
-  }
-
-  const filteredItems = slicedItems.filter((item) =>
-    item.customer_name.toLowerCase().includes(name?.toLowerCase() as string),
-  );
-
+const Table = ({ headers, items }: IPropsTable) => {
   return (
     <>
       <table>
@@ -22,7 +10,7 @@ const Table = ({ headers, items, name, offset, status }: IPropsTable) => {
         </thead>
 
         <tbody>
-          {(name === null ? slicedItems : filteredItems).map((item, idx) => (
+          {items.map((item, idx) => (
             <tr key={idx}>
               {headers.map((header) => (
                 <td key={header + idx}>
