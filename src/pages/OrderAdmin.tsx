@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router-dom";
+import FilterDropdown from "../components/FilterDropdown";
 import Pagination from "../components/Pagination";
 import SearchInput from "../components/SearchInput";
 import Table from "../components/Table/Table";
@@ -11,10 +12,11 @@ const OrderAdmin = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const pageNum =
-    searchParams.get("page") === null || 0
+    Number(searchParams.get("page")) === 0 || null
       ? 1
       : Number(searchParams.get("page"));
   const name = searchParams.get("name");
+  const status = searchParams.get("status");
 
   const values = Object.values((data as IOrderData[]) || {});
   const headers: string[] = Object.keys(values[0] || {});
@@ -30,10 +32,17 @@ const OrderAdmin = () => {
     <>
       <header>
         <SearchInput />
+        <FilterDropdown />
       </header>
 
       <main>
-        <Table headers={headers} items={items} name={name} offset={offset} />
+        <Table
+          headers={headers}
+          items={items}
+          name={name}
+          offset={offset}
+          status={status === null || "" ? null : status}
+        />
       </main>
 
       <footer>
