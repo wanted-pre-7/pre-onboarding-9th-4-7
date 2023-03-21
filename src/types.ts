@@ -9,12 +9,18 @@ export interface IOrderData {
   currency: string;
 }
 
-export interface IPropsToOrderAdmin {
+export interface IPropsTable {
   headers: string[];
   items: IOrderData[];
+  name?: string | null;
+  offset: number;
 }
 
-export interface IPropsToPagination {
+export interface IPropsTableHeader {
+  headers: string[];
+}
+
+export interface IPropsPagination {
   totalPageCount: number;
   pageNum: number;
   searchParams: URLSearchParams;

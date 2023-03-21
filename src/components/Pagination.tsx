@@ -1,11 +1,11 @@
-import type { IPropsToPagination } from "../types";
+import type { IPropsPagination } from "../types";
 
 const Pagination = ({
   totalPageCount,
   pageNum,
   searchParams,
   setPageNum,
-}: IPropsToPagination) => {
+}: IPropsPagination) => {
   const prevBtnHandler = () => {
     searchParams.set("page", String(pageNum - 1));
     setPageNum(searchParams);

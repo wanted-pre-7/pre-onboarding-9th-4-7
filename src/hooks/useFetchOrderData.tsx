@@ -1,8 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchOrderData } from "../api/apis";
+import { TODAY_DATE } from "../constants";
 import type { IOrderData } from "../types";
-
-const TODAY_DATE = "2023-03-08";
 
 const useFetchOrderData = () => {
   return useQuery(["orderData"], fetchOrderData, {
