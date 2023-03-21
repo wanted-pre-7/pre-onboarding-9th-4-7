@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router-dom";
+import { DROPDOWN_OPTIONS } from "../constants";
 
 const FilterDropdown = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -14,8 +15,11 @@ const FilterDropdown = () => {
 
       <select onChange={changeSelectHandler} id="status-select">
         <option value="">-- 전체 상태 --</option>
-        <option value="True">True</option>
-        <option value="False">False</option>
+        {DROPDOWN_OPTIONS.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
       </select>
     </>
   );

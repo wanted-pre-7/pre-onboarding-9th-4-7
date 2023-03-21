@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import type { IPropsPagination } from "../types";
 
 const Pagination = ({
@@ -6,6 +7,13 @@ const Pagination = ({
   searchParams,
   setPageNum,
 }: IPropsPagination) => {
+  useEffect(() => {
+    if (pageNum > totalPageCount) {
+      searchParams.set("page", String(totalPageCount));
+      setPageNum(searchParams);
+    }
+  }, [pageNum]);
+
   const prevBtnHandler = () => {
     searchParams.set("page", String(pageNum - 1));
     setPageNum(searchParams);

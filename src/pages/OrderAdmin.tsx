@@ -3,7 +3,7 @@ import FilterDropdown from "../components/FilterDropdown";
 import Pagination from "../components/Pagination";
 import SearchInput from "../components/SearchInput";
 import Table from "../components/Table/Table";
-import { LIMIT } from "../constants";
+import { DROPDOWN_OPTIONS, LIMIT } from "../constants";
 import useFetchOrderData from "../hooks/useFetchOrderData";
 import type { IOrderData } from "../types";
 
@@ -26,7 +26,7 @@ const OrderAdmin = () => {
   const offset = (pageNum - 1) * LIMIT;
 
   let slicedItems = items.slice(offset, offset + LIMIT);
-  if (status) {
+  if (DROPDOWN_OPTIONS.includes(status as string)) {
     slicedItems = slicedItems.filter(
       (v) => v.status === (status === "True" ? true : false),
     );
