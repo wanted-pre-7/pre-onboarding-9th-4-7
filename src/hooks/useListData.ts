@@ -10,6 +10,7 @@ export const useListData = () => {
       data.data
         .filter((list) => list.transaction_time.includes("2023-03-08"))
         .sort((a, b) => a.id - b.id),
+    refetchInterval: 5000,
   });
 
   return { data, isLoading };
