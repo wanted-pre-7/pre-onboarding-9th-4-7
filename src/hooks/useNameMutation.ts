@@ -9,7 +9,10 @@ export const useNameMutation = (formValue: string) => {
       const newData = {
         ...prev,
         data: prev.data.filter((list: IList) =>
-          list.customer_name.includes(formValue),
+          list.customer_name
+            .toLowerCase()
+            .replaceAll(" ", "")
+            .includes(formValue.toLowerCase().replaceAll(" ", "")),
         ),
       };
       queryClient.setQueryData(["listData"], newData);
