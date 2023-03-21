@@ -6,12 +6,22 @@ import { alpha } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import { useState } from "react";
+import { useNameMutation } from "../hooks/useNameMutation";
 
 interface TableToolbarPropTypes {
   numSelected: number;
 }
 
 const ListTableToolbar = ({ numSelected }: TableToolbarPropTypes) => {
+  const [formValue, setFormValue] = useState("");
+  const mutation = useNameMutation(formValue);
+  const handleChange = (e: React.FormEvent<HTMLFormElement>) => {
+    const { value } = e.target as HTMLInputElement;
+    setFormValue(value);
+    mutation.mutate();
+  };
+
   return (
     <Toolbar
       sx={{
@@ -48,6 +58,7 @@ const ListTableToolbar = ({ numSelected }: TableToolbarPropTypes) => {
       <Tooltip title="Search">
         <Paper
           component="form"
+          onChange={(e) => handleChange(e)}
           sx={{
             p: "2px 4px",
             display: "flex",
