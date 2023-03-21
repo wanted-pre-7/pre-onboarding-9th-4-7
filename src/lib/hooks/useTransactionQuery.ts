@@ -6,6 +6,7 @@ const useTransactionQuery = () =>
     queryKey: ["transactions"],
     queryFn: getTransactionData,
     refetchInterval: 5000,
+    suspense: true,
   });
 
 export default useTransactionQuery;
