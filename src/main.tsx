@@ -3,6 +3,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import Router from "./Router";
+import "./index.css";
 
 const queryClient = new QueryClient();
 

@@ -70,26 +70,32 @@ const OrderList = () => {
   };
 
   return (
-    <div>
-      <h2>주문 목록</h2>
-      <OrderFilters
-        status={status}
-        customer_name={customer_name}
-        updateStatus={updateStatus}
-        updateCustomerName={updateCustomerName}
-      />
-      <OrderTable
-        data={data.data}
-        sortKey={sortKey ? sortKey : "id"}
-        sortDir={sortDir ? sortDir : "asc"}
-        setSortConfig={setSortConfig}
-      />
-      <Pagination
-        total={data.total}
-        page={getPageNumber(page)}
-        setPage={setPage}
-      />
-    </div>
+    <section className="container px-4 mx-auto">
+      <div className="flex flex-col mt-6">
+        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+            <h2 className="text-2xl font-bold">주문 목록</h2>
+            <OrderFilters
+              status={status}
+              customer_name={customer_name}
+              updateStatus={updateStatus}
+              updateCustomerName={updateCustomerName}
+            />
+            <OrderTable
+              data={data.data}
+              sortKey={sortKey ? sortKey : "id"}
+              sortDir={sortDir ? sortDir : "asc"}
+              setSortConfig={setSortConfig}
+            />
+            <Pagination
+              total={data.total}
+              page={getPageNumber(page)}
+              setPage={setPage}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 

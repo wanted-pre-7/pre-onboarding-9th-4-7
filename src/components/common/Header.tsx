@@ -1,44 +1,15 @@
-import styled from "styled-components";
-
-const Positioner = styled.div`
-  width: 100%;
-`;
-
-const WhiteBackground = styled.div`
-  background: white;
-  display: flex;
-  height: auto;
-`;
-
-const HeaderContents = styled.div`
-  padding: 15px;
-  height: 55px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const GradientBorder = styled.div`
-  height: 3px;
-  background: linear-gradient(to right, Orange, Orange, yellow);
-`;
-
-const YellowSpan = styled.span`
-  color: #ff5500;
-`;
-
 const Header = () => {
   return (
-    <Positioner>
-      <WhiteBackground>
-        <HeaderContents>
-          <h1>
-            switch<YellowSpan>won</YellowSpan>
+    <div>
+      <div className="flex">
+        <div className="flex flex-row p-6 items-center">
+          <h1 className="text-3xl font-bold">
+            switch<span className="text-orange-500">won</span>
           </h1>
-        </HeaderContents>
-      </WhiteBackground>
-      <GradientBorder />
-    </Positioner>
+        </div>
+      </div>
+      <div className="h-1 bg-gradient-to-r from-orange-500 to-yellow-500" />
+    </div>
   );
 };
 
