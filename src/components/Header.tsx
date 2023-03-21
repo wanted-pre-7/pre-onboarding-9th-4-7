@@ -1,8 +1,11 @@
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+
 const Header = () => {
   return (
-    <nav>
-      <ul>Is Header</ul>
-    </nav>
+    <Box sx={{ paddingLeft: "15%", marginBottom: "16px" }}>
+      <Avatar alt="Remy Sharp" src="/img/logo.webp" />
+    </Box>
   );
 };
 
