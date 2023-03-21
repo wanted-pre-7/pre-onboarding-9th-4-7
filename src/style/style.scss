@@ -1,82 +1,84 @@
 @use "./reset";
+@use "../style/colors" as *;
+@use "../style/mixins" as *;
 
 // main page
 .page-container {
   width: 100%;
   min-height: 100vh;
-  background: #eaebf0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background: $main-background-color;
+  @include flex($d: column);
 }
 
 .page-title {
   width: 100%;
-  font-size: 30px;
-  color: #363f47;
-  font-weight: 600;
   padding-left: 60px;
   margin: 30px 0;
+  @include text(30px, $main-text-color, 600);
 }
 
 .time-stamp {
-  font-size: 13px;
-  color: #768390;
   margin-left: 10px;
+  @include text(13px, $secondary-text-color);
+  @media (max-width: 475px) {
+    margin-left: 5px;
+  }
 }
 
 .section-wrapper {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flex($j: space-between);
   > section {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
     padding: 0 30px;
-    color: #768390;
-    font-size: 13px;
+    @include text(13px, $secondary-text-color);
+    @include flex($d: column, $a: flex-start, $g: 10px);
+  }
+  @media (max-width: 990px) {
+    @include flex($d: column, $a: flex-start);
+  }
+}
+
+.pagination-section {
+  @media (max-width: 990px) {
+    margin-left: -60px;
   }
 }
 
 .select-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+  @include flex($g: 5px);
+  @media (max-width: 475px) {
+    @include flex($d: column, $a: flex-start, $g: 10px);
+  }
   > p {
-    font-weight: 600;
-    font-size: 13px;
     margin-left: 5px;
+    @include text(13px, $main-text-color, 600);
   }
   & .main-input {
-    font-size: 13px;
-    color: #363f47;
-    border: 1px solid #d1d6e3;
+    border: 1px solid $border-color;
     border-radius: 5px;
     padding: 5px;
+    @include text(13px, $main-text-color);
     &:focus {
       outline: none;
     }
     &::placeholder {
-      color: #768390;
+      color: $secondary-text-color;
     }
   }
   & .main-button {
     background: none;
-    border: 1px solid #d1d6e3;
+    border: 1px solid $border-color;
     border-radius: 5px;
     padding: 5px;
     margin-left: 5px;
-    font-size: 13px;
-    color: #363f47;
+    @include text(13px, $main-text-color);
     cursor: pointer;
   }
   > select {
-    color: #363f47;
-    border: 1px solid #d1d6e3;
+    border: 1px solid $border-color;
     border-radius: 5px;
     padding: 5px;
+    @include text(13px, $main-text-color);
     &:focus {
       outline: none;
     }
@@ -86,18 +88,19 @@
 // table
 .table-wrapper {
   width: 100vw;
-  background: #ffffff;
-  border: 1px solid #d1d6e3;
-  font-size: 15px;
-  color: #363f47;
+  background: $base-background-color;
+  border: 1px solid $border-color;
+  @include text(15px, $main-text-color);
   table {
     width: inherit;
     thead {
       height: 50px;
-      background: #f8f9fb;
-      border-bottom: 1px solid #d1d6e3;
-      font-size: 13px;
-      font-weight: 600;
+      background: $table-background-color;
+      border-bottom: 1px solid $border-color;
+      @include text(13px, $main-text-color, 600);
+      @media (max-width: 475px) {
+        @include text(10px, $main-text-color, 600);
+      }
     }
     th,
     td {
@@ -123,11 +126,14 @@
       }
       &:last-child {
         padding-right: 30px;
+        @media (max-width: 475px) {
+          padding-right: 0px;
+        }
       }
     }
     tbody {
       tr {
-        border-bottom: 1px solid #d1d6e3;
+        border-bottom: 1px solid $border-color;
         &:last-child {
           border-bottom: none;
         }
@@ -135,26 +141,28 @@
     }
     td {
       height: 50px;
-      color: #768390;
-      font-weight: 400;
+      @include text(15px, $secondary-text-color);
+      @media (max-width: 475px) {
+        @include text(10px, $secondary-text-color);
+      }
     }
   }
 }
 
 button.sort-button {
-  font-size: 13px;
-  font-weight: 700;
-  color: #363f47;
   border: none;
   background: none;
-  display: flex;
-  align-items: flex-end;
+  @include text(13px, $main-text-color, 700);
+  @include flex();
   cursor: pointer;
   & .sort-icon {
-    font-size: 20px;
+    @include text(20px, $main-text-color, 700);
     &.inactive {
-      color: #d1d6e3;
+      @include text(20px, $light-text-color, 700);
     }
+  }
+  @media (max-width: 475px) {
+    font-size: 10px;
   }
 }
 
@@ -162,17 +170,21 @@ button.sort-button {
 .badge {
   width: 50px;
   padding: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border-radius: 20px;
-  font-size: 15px;
-  font-weight: 500;
-  background: #d1fae4;
-  color: #196b51;
+  background: $active-background-color;
+  @include flex();
+  @include text(15px, $active-text-color, 500);
+  @media (max-width: 475px) {
+    width: 30px;
+    font-size: 10px;
+  }
   &.inactive {
-    background: #fdf3c7;
-    color: #9a501d;
+    background: $inactive-background-color;
+    @include text(15px, $inactive-text-color, 500);
+    @media (max-width: 475px) {
+      width: 30px;
+      font-size: 10px;
+    }
   }
 }
 
@@ -180,32 +192,30 @@ button.sort-button {
 .page-button-wrapper {
   width: 100%;
   padding: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
+  @include flex($g: 5px);
 }
 
 .arrow-button {
   width: 35px;
   height: 35px;
   background: none;
-  border: 1px solid #d1d6e3;
+  border: 1px solid $border-color;
   border-radius: 5px;
-  font-size: 20px;
-  color: #768390;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include text(20px, $secondary-text-color);
+  @include flex();
   cursor: pointer;
   &:disabled {
-    color: #d1d6e3;
+    @include text(20px, $light-text-color);
   }
   &.page-button {
-    font-size: 13px;
+    @include text(13px, $secondary-text-color);
     &.active {
-      color: #363f47;
-      background: #ffffff;
+      background: $base-background-color;
+      @include text(13px, $main-text-color);
     }
+  }
+  @media (max-width: 475px) {
+    width: 25px;
+    height: 25px;
   }
 }

@@ -115,7 +115,7 @@ const Main = () => {
             {today} {customer !== "" && `& ${customer}`} 검색 결과
           </p>
         </section>
-        <section>
+        <section className="pagination-section">
           <Pagination data={data ? data : []} />
         </section>
       </div>
