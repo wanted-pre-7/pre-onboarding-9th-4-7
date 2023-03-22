@@ -6,3 +6,8 @@ export interface IOrder {
   customer_name: string;
   currency: string;
 }
+
+export interface IColumn {
+  Header: string;
+  accessor: string;
+}

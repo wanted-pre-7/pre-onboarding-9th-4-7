@@ -1,9 +1,9 @@
-import OrderList from "./components/OrderList";
+import Table from "./components/Table";
 
 const App = () => {
   return (
     <>
-      <OrderList />
+      <Table />
     </>
   );
 };
