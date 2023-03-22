@@ -1,3 +1,4 @@
+import { Button, Th, Tr } from "@chakra-ui/react";
 import { useSearchParams } from "react-router-dom";
 import type { IPropsTableHeader } from "../../types";
 
@@ -12,17 +13,17 @@ const TableHeader = ({ headers }: IPropsTableHeader) => {
   };
 
   return (
-    <tr>
+    <Tr>
       {headers.map((header) => (
-        <th key={header}>
+        <Th key={header} fontFamily="Pretendard Variable">
           {header === "id" || header === "transaction_time" ? (
-            <span onClick={() => sortHandler(header)}>{header}</span>
+            <Button onClick={() => sortHandler(header)}>{header}</Button>
           ) : (
             header
           )}
-        </th>
+        </Th>
       ))}
-    </tr>
+    </Tr>
   );
 };
 

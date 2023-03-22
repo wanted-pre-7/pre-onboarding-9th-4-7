@@ -1,10 +1,19 @@
 import { useSearchParams } from "react-router-dom";
+import Layout, {
+  FooterWrapper,
+  HeaderWrapper,
+  MainWrapper,
+} from "../components/common/Layout";
+
+import LoadingSpinner from "../components/common/LoadingSpinner";
 import FilterDropdown from "../components/FilterDropdown";
 import Pagination from "../components/Pagination";
 import SearchInput from "../components/SearchInput";
 import Table from "../components/Table/Table";
+
 import { DROPDOWN_OPTIONS, LIMIT } from "../constants";
 import useFetchOrderData from "../hooks/useFetchOrderData";
+
 import type { IOrderData } from "../types";
 
 const OrderAdmin = () => {
@@ -46,26 +55,28 @@ const OrderAdmin = () => {
     );
   }
 
+  if (isLoading) return <LoadingSpinner />;
+
   return (
-    <>
-      <header>
+    <Layout>
+      <HeaderWrapper>
         <SearchInput />
         <FilterDropdown />
-      </header>
+      </HeaderWrapper>
 
-      <main>
+      <MainWrapper>
         <Table headers={headers} items={slicedItems} />
-      </main>
+      </MainWrapper>
 
-      <footer>
+      <FooterWrapper>
         <Pagination
           totalPageCount={totalPageCount}
           pageNum={pageNum}
           searchParams={searchParams}
           setPageNum={setSearchParams}
         />
-      </footer>
-    </>
+      </FooterWrapper>
+    </Layout>
   );
 };
 

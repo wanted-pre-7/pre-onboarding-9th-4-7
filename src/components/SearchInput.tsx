@@ -1,3 +1,4 @@
+import { Input } from "@chakra-ui/react";
 import { useSearchParams } from "react-router-dom";
 
 const SearchInput = () => {
@@ -9,10 +10,11 @@ const SearchInput = () => {
   };
 
   return (
-    <input
-      type="text"
+    <Input
       placeholder="고객 이름 검색"
       onChange={searchInputHandler}
+      width="lg"
+      mr={8}
     />
   );
 };

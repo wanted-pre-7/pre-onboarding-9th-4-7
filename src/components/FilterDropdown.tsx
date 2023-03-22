@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import { useSearchParams } from "react-router-dom";
 import { DROPDOWN_OPTIONS } from "../constants";
 
@@ -10,19 +11,21 @@ const FilterDropdown = () => {
   };
 
   return (
-    <>
-      <label htmlFor="status-select">주문 처리 상태</label>
-
+    <SelectWrapper>
       <select onChange={changeSelectHandler} id="status-select">
-        <option value="">-- 전체 상태 --</option>
+        <option value="">-- Status: All --</option>
         {DROPDOWN_OPTIONS.map((option) => (
           <option key={option} value={option}>
             {option}
           </option>
         ))}
       </select>
-    </>
+    </SelectWrapper>
   );
 };
+
+const SelectWrapper = styled.div`
+  border: 1px #9ca3af solid;
+`;
 
 export default FilterDropdown;

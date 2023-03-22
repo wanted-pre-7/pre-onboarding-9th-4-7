@@ -1,3 +1,4 @@
+import { Button } from "@chakra-ui/react";
 import { useEffect } from "react";
 import type { IPropsPagination } from "../types";
 
@@ -25,27 +26,33 @@ const Pagination = ({
   };
 
   const numberBtnHandler = (index: number) => {
+    window.scrollTo(0, 0);
     searchParams.set("page", String(index + 1));
     setPageNum(searchParams);
   };
 
   return (
     <>
-      <button onClick={prevBtnHandler} disabled={pageNum === 1}>
-        이전
-      </button>
+      <Button onClick={prevBtnHandler} disabled={pageNum === 1}>
+        &larr; 이전
+      </Button>
 
       {Array(totalPageCount)
         .fill(0)
         .map((_, idx) => (
-          <button key={idx + 1} onClick={() => numberBtnHandler(idx)}>
+          <Button
+            variant="ghost"
+            isActive={idx + 1 === pageNum}
+            key={idx + 1}
+            onClick={() => numberBtnHandler(idx)}
+          >
             {idx + 1}
-          </button>
+          </Button>
         ))}
 
-      <button onClick={nextBtnHandler} disabled={pageNum === totalPageCount}>
-        다음
-      </button>
+      <Button onClick={nextBtnHandler} disabled={pageNum === totalPageCount}>
+        다음 &rarr;
+      </Button>
     </>
   );
 };
