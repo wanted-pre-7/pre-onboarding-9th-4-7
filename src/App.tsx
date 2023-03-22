@@ -1,4 +1,10 @@
+import OrderList from "./components/OrderList";
+
 const App = () => {
-  return <div>App</div>;
+  return (
+    <>
+      <OrderList />
+    </>
+  );
 };
 export default App;
