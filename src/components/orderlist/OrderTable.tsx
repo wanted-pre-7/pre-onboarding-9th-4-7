@@ -2,17 +2,19 @@ import type { IDataResponse } from "../../types";
 import TableSortAscIcon from "./TableSortAscIcon";
 import TableSortDescIcon from "./TableSortDescIcon";
 
+export interface IOrderTableProps {
+  data: IDataResponse[];
+  sortKey: string;
+  sortDir: string;
+  setSortConfig: (key: string) => void;
+}
+
 const OrderTable = ({
   data,
   sortKey,
   sortDir,
   setSortConfig,
-}: {
-  data: IDataResponse[];
-  sortKey: string;
-  sortDir: string;
-  setSortConfig: (key: string) => void;
-}) => {
+}: IOrderTableProps) => {
   return (
     <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
       <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
@@ -21,6 +23,7 @@ const OrderTable = ({
             <th
               scope="col"
               onClick={() => setSortConfig("id")}
+              data-testid="test-id-th"
               className="p-4 w-1/4 rtl:text-right text-gray-500 dark:text-gray-400"
             >
               <button className="flex items-center gap-x-3 focus:outline-none">
@@ -36,6 +39,7 @@ const OrderTable = ({
             </th>
             <th
               scope="col"
+              data-testid="test-transaction-time-th"
               onClick={() => setSortConfig("transaction_time")}
               className="p-4 w-1/4 rtl:text-right text-gray-500 dark:text-gray-400"
             >

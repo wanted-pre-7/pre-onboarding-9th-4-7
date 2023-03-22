@@ -6,9 +6,16 @@ export function renderWithRouterMatch(
   ui: JSX.Element,
   { path = "/", route = "/" } = {},
 ) {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  });
   return {
     ...render(
-      <QueryClientProvider client={new QueryClient()}>
+      <QueryClientProvider client={queryClient}>
         <MemoryRouter initialEntries={[route]}>
           <Routes>
             <Route path={path} element={ui} />
