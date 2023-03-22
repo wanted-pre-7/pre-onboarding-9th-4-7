@@ -15,6 +15,7 @@ const useCustomTable = ({ orders, pageIndex, pageSize }: IProps) => {
       {
         Header: "주문번호",
         accessor: "id",
+        sortType: "number",
       },
       {
         Header: "거래시간",
