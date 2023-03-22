@@ -15,13 +15,14 @@ const Pagination = ({ total, page, setPage }: IPaginationProps) => {
   const pageArrayIndex = getPageArrayIndex(page);
   const pages =
     pageArray[pageArrayIndex > pageArray.length - 1 ? 0 : pageArrayIndex];
+  const pagetnum = pageArrayIndex > pageArray.length - 1 ? "1" : page;
 
   return (
     <>
       {total > 0 ? (
         <nav className="flex justify-center items-center gap-1 m-4">
           <button
-            className="border-none rounded-lg p-2 m-0  text-black text-base disabled:cursor-not-allowed "
+            className="border-none rounded-lg p-2 m-0  text-black text-base hover:bg-gray-100 disabled:cursor-not-allowed "
             onClick={() =>
               setPage(
                 String(
@@ -29,15 +30,15 @@ const Pagination = ({ total, page, setPage }: IPaginationProps) => {
                 ),
               )
             }
-            disabled={pageArrayIndex === 0}
-            data-testid="test-left-button"
+            disabled={pageArrayIndex === 0 || pagetnum == "1"}
+            data-testid="test-first-button"
           >
             &lt;&lt;
           </button>
           <button
-            className="border-none rounded-lg p-2 m-0  text-black text-base disabled:cursor-not-allowed "
-            onClick={() => setPage(String(Number(page) - 2))}
-            disabled={page === "1"}
+            className="border-none rounded-lg p-2 m-0  text-black text-base hover:bg-gray-100 disabled:cursor-not-allowed "
+            onClick={() => setPage(String(Number(pagetnum) - 2))}
+            disabled={pagetnum === "1"}
             data-testid="test-left-button"
           >
             &lt;
@@ -45,28 +46,30 @@ const Pagination = ({ total, page, setPage }: IPaginationProps) => {
           {pages?.map((n) => (
             <button
               className="border-none rounded-3xl p-2 m-0  text-black text-base hover:bg-orange-100 aria-selected:bg-orange-100 "
-              key={page + (n + 1)}
+              key={pagetnum + (n + 1)}
               onClick={() => setPage(n + "")}
-              aria-selected={page == String(n + 1) ? true : false}
+              aria-selected={pagetnum == String(n + 1) ? true : false}
             >
               {n + 1}
             </button>
           ))}
           <button
-            className="border-none rounded-lg p-2 m-0  text-black text-base  disabled:cursor-not-allowed"
-            onClick={() => setPage(page)}
+            className="border-none rounded-lg p-2 m-0  text-black text-base hover:bg-gray-100  disabled:cursor-not-allowed"
+            onClick={() => setPage(pagetnum)}
             disabled={pageArrayIndex === pageArray.length - 1}
             data-testid="test-right-button"
           >
             &gt;
           </button>
           <button
-            className="border-none rounded-lg p-2 m-0  text-black text-base  disabled:cursor-not-allowed"
+            className="border-none rounded-lg p-2 m-0  text-black text-base hover:bg-gray-100 disabled:cursor-not-allowed"
             onClick={() =>
               setPage(
                 String(
                   pageArray[
-                    pageArrayIndex === pageArray.length - 1
+                    pageArrayIndex > pageArray.length - 1
+                      ? 0
+                      : pageArrayIndex === pageArray.length - 1
                       ? pageArrayIndex
                       : pageArrayIndex + 1
                   ][0],
@@ -74,7 +77,7 @@ const Pagination = ({ total, page, setPage }: IPaginationProps) => {
               )
             }
             disabled={pageArrayIndex === pageArray.length - 1}
-            data-testid="test-right-button"
+            data-testid="test-last-button"
           >
             &gt;&gt;
           </button>
