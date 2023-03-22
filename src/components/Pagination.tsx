@@ -5,7 +5,7 @@ import {
   MdOutlineKeyboardArrowRight,
   MdOutlineLastPage,
 } from "react-icons/md";
-import { useSearchParams } from "react-router-dom";
+import useSearchParameters from "../hooks/useSearchParameters";
 import type { Data } from "../types";
 
 type Props = {
@@ -13,56 +13,49 @@ type Props = {
 };
 
 const Pagination = ({ data }: Props) => {
-  const [searchParams, setSearchParams] = useSearchParams();
   const lastPage = useMemo(() => Math.ceil(data?.length / 50), [data]);
-
-  const currentPage = searchParams.get("page");
+  const { page: currentPage, setParams } = useSearchParameters();
 
   useEffect(() => {
-    if (currentPage !== "1" && Number(currentPage) > lastPage)
-      searchParams.set("page", String(lastPage));
-    setSearchParams(searchParams);
+    if (String(currentPage) !== "1" && Number(currentPage) > lastPage)
+      setParams("page", lastPage);
   }, [currentPage, lastPage]);
 
   const handleClick = (type: string) => {
-    let page = "1";
+    let page = 1;
     const prevPage = Number(currentPage) - 1;
     const nextPage = Number(currentPage) + 1;
     switch (type) {
       case "doubleLeft":
-        page = "1";
+        page = 1;
         break;
       case "left":
-        page = String(prevPage);
+        page = prevPage;
         break;
       case "right":
-        page = String(nextPage);
+        page = nextPage;
         break;
       case "doubleRight":
-        page = String(lastPage);
+        page = lastPage;
         break;
     }
-    searchParams.set("page", page);
-    setSearchParams(searchParams);
+    setParams("page", page);
   };
 
-  const clickPage = (page: number) => {
-    searchParams.set("page", String(page));
-    setSearchParams(searchParams);
-  };
+  const clickPage = (page: number) => setParams("page", page);
 
   return (
     <div className="page-button-wrapper">
       <button
         onClick={() => handleClick("doubleLeft")}
-        disabled={Number(currentPage) === 1}
+        disabled={currentPage === 1}
         className="arrow-button"
       >
         <MdOutlineFirstPage />
       </button>
       <button
         onClick={() => handleClick("left")}
-        disabled={Number(currentPage) === 1}
+        disabled={currentPage === 1}
         className="arrow-button"
       >
         <MdOutlineKeyboardArrowLeft />
@@ -73,7 +66,7 @@ const Pagination = ({ data }: Props) => {
           <button
             onClick={() => clickPage(idx + 1)}
             className={
-              Number(currentPage) === idx + 1
+              currentPage === idx + 1
                 ? "arrow-button page-button active"
                 : "arrow-button page-button"
             }
@@ -85,14 +78,14 @@ const Pagination = ({ data }: Props) => {
 
       <button
         onClick={() => handleClick("right")}
-        disabled={Number(currentPage) === lastPage}
+        disabled={currentPage === lastPage}
         className="arrow-button"
       >
         <MdOutlineKeyboardArrowRight />
       </button>
       <button
         onClick={() => handleClick("doubleRight")}
-        disabled={Number(currentPage) === lastPage}
+        disabled={currentPage === lastPage}
         className="arrow-button"
       >
         <MdOutlineLastPage />

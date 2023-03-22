@@ -1,5 +1,5 @@
 import { MdExpandMore } from "react-icons/md";
-import { useSearchParams } from "react-router-dom";
+import useSearchParameters from "../hooks/useSearchParameters";
 import type { Data } from "../types";
 import Badge from "./Badge";
 
@@ -16,12 +16,12 @@ const Table = ({ data }: Props) => {
     "가격",
     "주문상태",
   ];
-  const [searchParams, setSearchParams] = useSearchParams();
-  const current = searchParams.get("sort");
+
+  const { sort: current, setParams } = useSearchParameters();
+
   const handleSort = (category: string) => {
-    if (current === category) searchParams.set("sort", "default");
-    else searchParams.set("sort", category);
-    setSearchParams(searchParams);
+    if (current === category) setParams("sort", "default");
+    else setParams("sort", category);
   };
 
   return (
