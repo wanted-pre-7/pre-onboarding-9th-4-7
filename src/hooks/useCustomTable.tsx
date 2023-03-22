@@ -1,13 +1,16 @@
 import { useMemo } from "react";
+import type { Column } from "react-table";
 import { usePagination, useTable } from "react-table";
-import type { IColumn, IOrder } from "../types/order";
+import type { IOrder } from "../types/order";
 
 interface IProps {
   orders?: IOrder[];
+  pageIndex: number;
+  pageSize: number;
 }
 
-const useCustomTable = ({ orders }: IProps) => {
-  const columns = useMemo<IColumn[]>(
+const useCustomTable = ({ orders, pageIndex, pageSize }: IProps) => {
+  const columns = useMemo<readonly Column<IOrder>[]>(
     () => [
       {
         Header: "주문번호",
@@ -20,8 +23,9 @@ const useCustomTable = ({ orders }: IProps) => {
       {
         Header: "주문처리상태",
         accessor: "status",
-        Cell: ({ value }: { value: boolean }) =>
-          value ? "처리완료" : "처리중",
+        Cell: ({ value }: { value: boolean }) => (
+          <span>{value ? "처리완료" : "처리중"} </span>
+        ),
       },
       {
         Header: "고객번호",
@@ -41,8 +45,8 @@ const useCustomTable = ({ orders }: IProps) => {
 
   const data = useMemo<IOrder[]>(() => {
     if (!orders) return [];
-    return orders;
-  }, [orders]);
+    return [...orders].slice(pageIndex * pageSize, (pageIndex + 1) * pageSize);
+  }, [orders, pageIndex]);
 
   const tableInstance = useTable(
     {
@@ -51,6 +55,7 @@ const useCustomTable = ({ orders }: IProps) => {
     },
     usePagination,
   );
+
   return tableInstance;
 };
 
