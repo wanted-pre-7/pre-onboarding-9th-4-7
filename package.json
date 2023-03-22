@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "prepare": "husky install",
     "prebuild": "npm run test",
-    "test": "jest"
+    "test": "jest --watch"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.27.0",

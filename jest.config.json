@@ -1,4 +1,7 @@
 {
+    "roots": ["./src"],
+    "testMatch": ["**/__tests__/**/*.+(js|jsx|ts|tsx)", "**/?(*.)+(spec|test).+(js|jsx|ts|tsx)"],
+    "testPathIgnorePatterns": ["/node_modules/"],
     "testEnvironment": "jsdom",
     "moduleNameMapper": {
         "\\.(css|less|svg)$": "identity-obj-proxy"
