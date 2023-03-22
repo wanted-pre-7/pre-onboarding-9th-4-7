@@ -77,7 +77,9 @@ const Main = () => {
           </div>
           <p>
             <MdFilterAlt />
-            {today} {customer !== "" && `& ${customer}를 포함한`} 검색 결과
+            <span>
+              {today} {customer && `& ${customer}를 포함한`} 검색 결과
+            </span>
           </p>
         </section>
         <section className="pagination-section">

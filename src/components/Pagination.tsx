@@ -7,6 +7,7 @@ import {
 } from "react-icons/md";
 import useSearchParameters from "../hooks/useSearchParameters";
 import type { Data } from "../types";
+import handlePage from "../utils/handlePage";
 
 type Props = {
   data: Data[];
@@ -22,23 +23,7 @@ const Pagination = ({ data }: Props) => {
   }, [currentPage, lastPage]);
 
   const handleClick = (type: string) => {
-    let page = 1;
-    const prevPage = Number(currentPage) - 1;
-    const nextPage = Number(currentPage) + 1;
-    switch (type) {
-      case "doubleLeft":
-        page = 1;
-        break;
-      case "left":
-        page = prevPage;
-        break;
-      case "right":
-        page = nextPage;
-        break;
-      case "doubleRight":
-        page = lastPage;
-        break;
-    }
+    const page = handlePage(type, currentPage, lastPage);
     setParams("page", page);
   };
 
@@ -50,6 +35,7 @@ const Pagination = ({ data }: Props) => {
         onClick={() => handleClick("doubleLeft")}
         disabled={currentPage === 1}
         className="arrow-button"
+        data-testid="first-page-button"
       >
         <MdOutlineFirstPage />
       </button>
@@ -80,6 +66,7 @@ const Pagination = ({ data }: Props) => {
         onClick={() => handleClick("right")}
         disabled={currentPage === lastPage}
         className="arrow-button"
+        data-testid="next-button"
       >
         <MdOutlineKeyboardArrowRight />
       </button>
@@ -87,6 +74,7 @@ const Pagination = ({ data }: Props) => {
         onClick={() => handleClick("doubleRight")}
         disabled={currentPage === lastPage}
         className="arrow-button"
+        data-testid="last-page-button"
       >
         <MdOutlineLastPage />
       </button>
