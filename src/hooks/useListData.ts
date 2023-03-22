@@ -4,7 +4,7 @@ import { getList } from "../api";
 import type { IList } from "../types";
 
 export const useListData = () => {
-  const { data, isLoading } = useQuery(["listData"], getList, {
+  const { data, isLoading, isSuccess } = useQuery(["listData"], getList, {
     // eslint-disable-next-line no-shadow
     select: (data: AxiosResponse<IList[]>) =>
       data.data
@@ -13,5 +13,5 @@ export const useListData = () => {
     refetchInterval: 5000,
   });
 
-  return { data, isLoading };
+  return { data, isLoading, isSuccess };
 };
