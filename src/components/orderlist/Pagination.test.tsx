@@ -135,4 +135,25 @@ describe("Pagination", () => {
     expect(setPage).toHaveBeenCalledTimes(2);
     expect(setPage).toHaveBeenCalledWith("0");
   });
+
+  it("click on page 3 of 3", () => {
+    const { setPage, first_button, left_button, right_button, last_button } =
+      renderPagination(140, "3");
+
+    expect(first_button).toBeDisabled();
+    fireEvent.click(first_button);
+    expect(setPage).toHaveBeenCalledTimes(0);
+
+    fireEvent.click(left_button);
+    expect(setPage).toHaveBeenCalledTimes(1);
+    expect(setPage).toHaveBeenCalledWith("1");
+
+    expect(right_button).toBeDisabled();
+    fireEvent.click(right_button);
+    expect(setPage).toHaveBeenCalledTimes(1);
+
+    expect(last_button).toBeDisabled();
+    fireEvent.click(last_button);
+    expect(setPage).toHaveBeenCalledTimes(1);
+  });
 });

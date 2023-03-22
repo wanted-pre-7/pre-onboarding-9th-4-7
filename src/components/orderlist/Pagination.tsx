@@ -56,7 +56,10 @@ const Pagination = ({ total, page, setPage }: IPaginationProps) => {
           <button
             className="border-none rounded-lg p-2 m-0  text-black text-base hover:bg-gray-100  disabled:cursor-not-allowed"
             onClick={() => setPage(pagetnum)}
-            disabled={pageArrayIndex === pageArray.length - 1}
+            disabled={
+              pageArrayIndex === pageArray.length - 1 &&
+              pagetnum == String(pages[pages.length - 1] + 1)
+            }
             data-testid="test-right-button"
           >
             &gt;
