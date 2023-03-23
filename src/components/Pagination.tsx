@@ -37,7 +37,7 @@ const Pagination = ({ data }: Props) => {
   }, [currentPage, lastPage]);
 
   const handleClick = (type: string) => {
-    setParams("page", handlePage(type, currentPage));
+    setParams("page", handlePage(type, currentPage, lastPage));
   };
 
   const clickPage = (p: number) => setParams("page", p);
@@ -47,14 +47,10 @@ const Pagination = ({ data }: Props) => {
       {data?.length > 0 ? (
         <div className="page-button-wrapper">
           <button
-            onClick={() =>
-              clickPage(
-                pageArray[pageArrayIndex === 0 ? 1 : pageArrayIndex - 1][0] + 1,
-              )
-            }
-            disabled={pageArrayIndex === 0 || currentPage === 1}
+            onClick={() => handleClick("doubleLeft")}
+            disabled={currentPage === 1}
             className="arrow-button"
-            data-testid="prev-page-button"
+            data-testid="first-page-button"
           >
             <MdOutlineFirstPage />
           </button>
@@ -89,20 +85,10 @@ const Pagination = ({ data }: Props) => {
             <MdOutlineKeyboardArrowRight />
           </button>
           <button
-            onClick={() =>
-              clickPage(
-                pageArray[
-                  pageArrayIndex > pageArray.length - 1
-                    ? 0
-                    : pageArrayIndex === pageArray.length - 1
-                    ? pageArrayIndex
-                    : pageArrayIndex + 1
-                ][0] + 1,
-              )
-            }
-            disabled={pageArrayIndex === pageArray.length - 1}
+            onClick={() => handleClick("doubleRight")}
+            disabled={currentPage === lastPage}
             className="arrow-button"
-            data-testid="next-page-button"
+            data-testid="last-page-button"
           >
             <MdOutlineLastPage />
           </button>

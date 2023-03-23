@@ -16,31 +16,30 @@ describe("<Pagination/>", () => {
     fireEvent.click(nextButton);
     expect(prevButton).toBeEnabled();
   });
-  it("PrevPageButton is initially disabled, Click next-page-button to activate PrevPageButton ", async () => {
+  it("click LastPageButton to disable LastPageButton", async () => {
     setup(mockData);
-    const prevPageButton = screen.getByTestId("prev-page-button");
-    const nextPageButton = screen.getByTestId("next-page-button");
+    const lastPageButton = screen.getByTestId("last-page-button");
 
-    expect(prevPageButton).toBeDisabled();
-    fireEvent.click(nextPageButton);
-    expect(prevPageButton).toBeEnabled();
+    expect(lastPageButton).toBeEnabled();
+    fireEvent.click(lastPageButton);
+    expect(lastPageButton).toBeDisabled();
   });
   it("click prevButton to activate lastPageButton", async () => {
     setup(mockData);
-    const nextPageButton = screen.getByTestId("next-page-button");
+    const lastPageButton = screen.getByTestId("last-page-button");
     const prevButton = screen.getByTestId("prev-button");
 
-    expect(nextPageButton).toBeDisabled();
+    expect(lastPageButton).toBeDisabled();
     fireEvent.click(prevButton);
-    expect(nextPageButton).toBeEnabled();
+    expect(lastPageButton).toBeEnabled();
   });
-  it("click nextPageButton to disable nextPageButton", async () => {
+  it("click FirstPageButton to disable FirstPageButton", async () => {
     setup(mockData);
-    const nextPageButton = screen.getByTestId("next-page-button");
+    const firstPageButton = screen.getByTestId("first-page-button");
 
-    expect(nextPageButton).toBeEnabled();
-    fireEvent.click(nextPageButton);
-    expect(nextPageButton).toBeDisabled();
+    expect(firstPageButton).toBeEnabled();
+    fireEvent.click(firstPageButton);
+    expect(firstPageButton).toBeDisabled();
   });
 });
 
