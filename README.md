@@ -2,7 +2,7 @@
 
 주문내역 관리 어드민 페이지 구현
 
-### [배포주소](https://wanted-pre-3-7-flexsys.netlify.app/)
+### [배포주소](http://switchwon.s3-website.ap-northeast-2.amazonaws.com/)
 <br/>
 
 <img src="https://img.shields.io/badge/-TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white"/> <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/>
