@@ -3,16 +3,27 @@ import { useSearchParams } from "react-router-dom";
 
 const useSearchParameters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const page = Number(searchParams.get("page"));
+  const page =
+    searchParams.get("page") && !isNaN(Number(searchParams.get("page")))
+      ? Number(searchParams.get("page"))
+      : 1;
   const status = searchParams.get("status");
   const sort = searchParams.get("sort");
   const customer = searchParams.get("customer");
 
   useEffect(() => {
-    searchParams.set("page", "1");
-    searchParams.set("status", "전체");
-    searchParams.set("sort", "default");
-    searchParams.set("customer", "");
+    if (!searchParams.get("page") || isNaN(Number(searchParams.get("page")))) {
+      searchParams.set("page", "1");
+    }
+    if (!searchParams.get("status")) {
+      searchParams.set("status", "전체");
+    }
+    if (!searchParams.get("sort")) {
+      searchParams.set("sort", "default");
+    }
+    if (!searchParams.get("customer")) {
+      searchParams.set("customer", "");
+    }
     setSearchParams(searchParams);
   }, []);
 
