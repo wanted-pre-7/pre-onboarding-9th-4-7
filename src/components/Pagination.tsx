@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import {
   MdOutlineFirstPage,
   MdOutlineKeyboardArrowLeft,
@@ -25,6 +25,16 @@ const Pagination = ({ data }: Props) => {
   const pageArrayIndex = getPageArrayIndex(currentPage);
   const pages =
     pageArray[pageArrayIndex > pageArray.length - 1 ? 0 : pageArrayIndex];
+
+  useEffect(() => {
+    if (
+      data &&
+      data.length != 0 &&
+      String(currentPage) !== "1" &&
+      Number(currentPage) > lastPage
+    )
+      setParams("page", lastPage);
+  }, [currentPage, lastPage]);
 
   const handleClick = (type: string) => {
     setParams("page", handlePage(type, currentPage));
