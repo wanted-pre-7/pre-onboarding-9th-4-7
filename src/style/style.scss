@@ -1,0 +1,221 @@
+@use "./reset";
+@use "../style/colors" as *;
+@use "../style/mixins" as *;
+
+// main page
+.page-container {
+  width: 100%;
+  min-height: 100vh;
+  background: $main-background-color;
+  @include flex($d: column, $j: none);
+}
+
+.page-title {
+  width: 100%;
+  padding-left: 60px;
+  margin: 30px 0;
+  @include text(30px, $main-text-color, 600);
+}
+
+.time-stamp {
+  margin-left: 10px;
+  @include text(13px, $secondary-text-color);
+  @media (max-width: 475px) {
+    margin-left: 5px;
+  }
+}
+
+.section-wrapper {
+  width: 100%;
+  @include flex($j: space-between);
+  > section {
+    padding: 0 30px;
+    @include text(13px, $secondary-text-color);
+    @include flex($d: column, $a: flex-start, $g: 10px);
+  }
+  @media (max-width: 990px) {
+    @include flex($d: column, $a: flex-start);
+  }
+}
+
+.pagination-section {
+  @media (max-width: 990px) {
+    margin-left: -60px;
+  }
+}
+
+.select-wrapper {
+  @include flex($g: 5px);
+  @media (max-width: 475px) {
+    @include flex($d: column, $a: flex-start, $g: 10px);
+  }
+  > p {
+    margin-left: 5px;
+    @include text(13px, $main-text-color, 600);
+  }
+  & .main-input {
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    padding: 5px;
+    @include text(13px, $main-text-color);
+    &:focus {
+      outline: none;
+    }
+    &::placeholder {
+      color: $secondary-text-color;
+    }
+  }
+  & .main-button {
+    background: none;
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    padding: 5px;
+    margin-left: 5px;
+    @include text(13px, $main-text-color);
+    cursor: pointer;
+  }
+  > select {
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    padding: 5px;
+    @include text(13px, $main-text-color);
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+// table
+.table-wrapper {
+  width: 100vw;
+  background: $base-background-color;
+  border: 1px solid $border-color;
+  @include text(15px, $main-text-color);
+  table {
+    width: inherit;
+    thead {
+      height: 50px;
+      background: $table-background-color;
+      border-bottom: 1px solid $border-color;
+      @include text(13px, $main-text-color, 600);
+      @media (max-width: 475px) {
+        @include text(10px, $main-text-color, 600);
+      }
+    }
+    th,
+    td {
+      text-align: left;
+      vertical-align: middle;
+      &:nth-child(1) {
+        width: 15%;
+      }
+      &:nth-child(2) {
+        width: 25%;
+      }
+      &:nth-child(4),
+      &:nth-child(6) {
+        width: 20%;
+      }
+
+      &:nth-child(3),
+      &:nth-child(5) {
+        width: 10%;
+      }
+      &:first-child {
+        padding-left: 30px;
+      }
+      &:last-child {
+        padding-right: 30px;
+        @media (max-width: 475px) {
+          padding-right: 0px;
+        }
+      }
+    }
+    tbody {
+      tr {
+        border-bottom: 1px solid $border-color;
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+    td {
+      height: 50px;
+      @include text(15px, $secondary-text-color);
+      @media (max-width: 475px) {
+        @include text(10px, $secondary-text-color);
+      }
+    }
+  }
+}
+
+button.sort-button {
+  border: none;
+  background: none;
+  @include text(13px, $main-text-color, 700);
+  @include flex();
+  cursor: pointer;
+  & .sort-icon {
+    @include text(20px, $main-text-color, 700);
+    &.inactive {
+      @include text(20px, $light-text-color, 700);
+    }
+  }
+  @media (max-width: 475px) {
+    font-size: 10px;
+  }
+}
+
+// badge
+.badge {
+  width: 50px;
+  padding: 5px;
+  border-radius: 20px;
+  background: $active-background-color;
+  @include flex();
+  @include text(15px, $active-text-color, 500);
+  @media (max-width: 475px) {
+    width: 30px;
+    font-size: 10px;
+  }
+  &.inactive {
+    background: $inactive-background-color;
+    @include text(15px, $inactive-text-color, 500);
+    @media (max-width: 475px) {
+      width: 30px;
+      font-size: 10px;
+    }
+  }
+}
+
+// pagination
+.page-button-wrapper {
+  width: 100%;
+  padding: 30px;
+  @include flex($g: 5px);
+}
+
+.arrow-button {
+  width: 35px;
+  height: 35px;
+  background: none;
+  border: 1px solid $border-color;
+  border-radius: 5px;
+  @include text(20px, $secondary-text-color);
+  @include flex();
+  cursor: pointer;
+  &:disabled {
+    @include text(20px, $light-text-color);
+  }
+  &.page-button {
+    @include text(13px, $secondary-text-color);
+    &.active {
+      background: $base-background-color;
+      @include text(13px, $main-text-color);
+    }
+  }
+  @media (max-width: 475px) {
+    width: 25px;
+    height: 25px;
+  }
+}
