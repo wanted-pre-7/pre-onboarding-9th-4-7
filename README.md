@@ -31,8 +31,6 @@ npm run dev
 
 <br/>
 
-<img src="https://user-images.githubusercontent.com/86880916/225870287-3df177c5-1921-45e7-a759-c15b90399144.png" width="500"/>
-
 <br/>
 
 1. 주어진 데이터를 이용하여 주문 목록 페이지를 구현해주세요
