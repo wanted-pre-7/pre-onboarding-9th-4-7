@@ -56,28 +56,21 @@ npm run dev
 
 <br/>
 
-1. 시계열 차트 만들기
-  <img width="700" alt="1" src="https://user-images.githubusercontent.com/86880916/225871029-51bb40b4-81de-4e93-9f8b-ebe55abc794f.png" alt="1">
+1. 주문 목록 페이지 구현
+  <img width="700" alt="1" src="https://user-images.githubusercontent.com/82035356/227136628-36a3c9fa-2006-4b0d-8fc6-3a44e984739b.gif" alt="1">
+
 
 <br/>
 
-2. 호버 기능 구현 
-  <img width="700" src="https://user-images.githubusercontent.com/86880916/225905733-9a9c1cf7-3c79-4a81-871b-52bdb7b64760.gif" alt="2" >
+2. 정렬기능 구현
+  <img width="700" src="https://user-images.githubusercontent.com/82035356/227137217-66171b37-46ed-4329-acb0-913f5932a7c7.gif" alt="2" >
+
 
 <br/>
 
-3. 버튼을 통한 필터링
-  <img width="700" src="https://user-images.githubusercontent.com/86880916/225906911-36e610e1-a962-4621-bda6-b7ed113c905f.gif" alt="3">
-  
-<br/>
+3. 고객이름 검색 기능 구현
+  <img width="700" src="https://user-images.githubusercontent.com/82035356/227137271-00c9920c-40f3-43fa-8b93-b3b7f77d3c6d.gif" alt="3">
 
-4. 클릭을 통한 필터링 
-  <img width="700" src="https://user-images.githubusercontent.com/86880916/225907960-ddeded25-0017-469b-8937-4a6fa7b53477.gif" alt="4" >
-  
-<br/>
-
-5. area / bar 필터링 
-  <img width="700" src="https://user-images.githubusercontent.com/86880916/225908698-f5dbc75f-6f3b-45ed-b9f9-abb3a29b2622.gif" alt="5" >
   
 <br/>
 
@@ -98,6 +91,8 @@ npm run dev
 1. Pagenation 버튼 최대 5개로 고정
 
 - 데이터가 많아지면 버튼이 무한대로 늘어날 수도 있어 최대 Pagenation 버튼 갯수를 고정하였다. 
+
+2. 최대 페이지 개수보다 큰 수가 입력될 경우 마지막 페이지로 이동
 
 
 <br/>
@@ -127,9 +122,9 @@ npm run dev
 
 ## 회고 및 회의록
 
-[회고](https://solwork.notion.site/3-1d7a2634809f4441b1a96e068d5938ba) <br/> 
-[회의록](https://solwork.notion.site/cfbf7c8530ab43f29695dcac5923fd1c)<br/>
-[기술 및 기능 리뷰](https://github.com/wanted-pre-7/pre-onboarding-9th-3-7/wiki/%EB%A6%AC%EB%B7%B0)
+[회고](https://solwork.notion.site/4-c5692b280d8f4a0881619023ff9b47e8) <br/> 
+[회의록](https://solwork.notion.site/3-19-7dced8a86ca948e2a2edd5cb1b136b58)<br/>
+[기술 및 기능 리뷰](https://github.com/wanted-pre-7/pre-onboarding-9th-4-7/wiki/4%EC%A3%BC%EC%B0%A8-%EB%A6%AC%EB%B7%B0)
 
 <br/>
 
