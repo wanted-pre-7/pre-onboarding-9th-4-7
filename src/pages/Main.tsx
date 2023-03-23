@@ -37,7 +37,6 @@ const Main = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setParams("customer", name);
-    setName("");
   };
 
   return (
