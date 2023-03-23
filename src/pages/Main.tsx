@@ -51,7 +51,7 @@ const Main = () => {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setName(e.target.value)
                 }
-                value={name}
+                defaultValue={customer ? customer : ""}
                 className="main-input"
                 type="text"
                 name="name"
@@ -62,16 +62,10 @@ const Main = () => {
               </button>
             </form>
             <p>주문상태</p>
-            <select onChange={handleStatus}>
-              <option value="전체" selected={status === "전체"}>
-                전체
-              </option>
-              <option value="완료" selected={status === "완료"}>
-                완료
-              </option>
-              <option value="미완료" selected={status === "미완료"}>
-                미완료
-              </option>
+            <select onChange={handleStatus} value={status ? status : "전체"}>
+              <option value="전체">전체</option>
+              <option value="완료">완료</option>
+              <option value="미완료">미완료</option>
             </select>
             <span className="time-stamp">{count}초 전 업데이트</span>
           </div>
@@ -87,7 +81,6 @@ const Main = () => {
         </section>
       </div>
       <Table data={currentPageData} />
-      <Pagination data={data ? data : []} />
     </div>
   );
 };

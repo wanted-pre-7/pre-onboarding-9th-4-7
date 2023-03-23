@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import {
   MdOutlineFirstPage,
   MdOutlineKeyboardArrowLeft,
@@ -7,7 +7,11 @@ import {
 } from "react-icons/md";
 import useSearchParameters from "../hooks/useSearchParameters";
 import type { Data } from "../types";
-import handlePage from "../utils/handlePage";
+import {
+  getPageArrayIndex,
+  handlePage,
+  sliceArrayByLimit,
+} from "../utils/handlePage";
 
 type Props = {
   data: Data[];
@@ -17,68 +21,84 @@ const Pagination = ({ data }: Props) => {
   const lastPage = useMemo(() => Math.ceil(data?.length / 50), [data]);
   const { page: currentPage, setParams } = useSearchParameters();
 
-  useEffect(() => {
-    if (String(currentPage) !== "1" && Number(currentPage) > lastPage)
-      setParams("page", lastPage);
-  }, [currentPage, lastPage]);
+  const pageArray = sliceArrayByLimit(lastPage);
+  const pageArrayIndex = getPageArrayIndex(currentPage);
+  const pages =
+    pageArray[pageArrayIndex > pageArray.length - 1 ? 0 : pageArrayIndex];
 
   const handleClick = (type: string) => {
-    const page = handlePage(type, currentPage, lastPage);
-    setParams("page", page);
+    setParams("page", handlePage(type, currentPage));
   };
 
-  const clickPage = (page: number) => setParams("page", page);
+  const clickPage = (p: number) => setParams("page", p);
 
   return (
-    <div className="page-button-wrapper">
-      <button
-        onClick={() => handleClick("doubleLeft")}
-        disabled={currentPage === 1}
-        className="arrow-button"
-        data-testid="first-page-button"
-      >
-        <MdOutlineFirstPage />
-      </button>
-      <button
-        onClick={() => handleClick("left")}
-        disabled={currentPage === 1}
-        className="arrow-button"
-      >
-        <MdOutlineKeyboardArrowLeft />
-      </button>
-      {Array(lastPage ? lastPage : 0)
-        .fill(0)
-        .map((_, idx) => (
+    <>
+      {data?.length > 0 ? (
+        <div className="page-button-wrapper">
           <button
-            onClick={() => clickPage(idx + 1)}
-            className={
-              currentPage === idx + 1
-                ? "arrow-button page-button active"
-                : "arrow-button page-button"
+            onClick={() =>
+              clickPage(
+                pageArray[pageArrayIndex === 0 ? 1 : pageArrayIndex - 1][0] + 1,
+              )
             }
-            key={idx}
+            disabled={pageArrayIndex === 0 || currentPage === 1}
+            className="arrow-button"
+            data-testid="prev-page-button"
           >
-            {idx + 1}
+            <MdOutlineFirstPage />
           </button>
-        ))}
+          <button
+            onClick={() => handleClick("left")}
+            disabled={currentPage === 1}
+            className="arrow-button"
+            data-testid="prev-button"
+          >
+            <MdOutlineKeyboardArrowLeft />
+          </button>
+          {pages?.map((n) => (
+            <button
+              onClick={() => clickPage(n + 1)}
+              className={
+                currentPage === n + 1
+                  ? "arrow-button page-button active"
+                  : "arrow-button page-button"
+              }
+              key={n}
+            >
+              {n + 1}
+            </button>
+          ))}
 
-      <button
-        onClick={() => handleClick("right")}
-        disabled={currentPage === lastPage}
-        className="arrow-button"
-        data-testid="next-button"
-      >
-        <MdOutlineKeyboardArrowRight />
-      </button>
-      <button
-        onClick={() => handleClick("doubleRight")}
-        disabled={currentPage === lastPage}
-        className="arrow-button"
-        data-testid="last-page-button"
-      >
-        <MdOutlineLastPage />
-      </button>
-    </div>
+          <button
+            onClick={() => handleClick("right")}
+            disabled={currentPage === lastPage}
+            className="arrow-button"
+            data-testid="next-button"
+          >
+            <MdOutlineKeyboardArrowRight />
+          </button>
+          <button
+            onClick={() =>
+              clickPage(
+                pageArray[
+                  pageArrayIndex > pageArray.length - 1
+                    ? 0
+                    : pageArrayIndex === pageArray.length - 1
+                    ? pageArrayIndex
+                    : pageArrayIndex + 1
+                ][0] + 1,
+              )
+            }
+            disabled={pageArrayIndex === pageArray.length - 1}
+            className="arrow-button"
+            data-testid="next-page-button"
+          >
+            <MdOutlineLastPage />
+          </button>
+        </div>
+      ) : null}
+    </>
   );
 };
 
