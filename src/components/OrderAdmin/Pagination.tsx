@@ -14,7 +14,7 @@ const Pagination = ({
       searchParams.set("page", String(totalPageCount));
       setPageNum(searchParams);
     }
-  }, [pageNum]);
+  }, [pageNum, searchParams]);
 
   const prevBtnHandler = () => {
     searchParams.set("page", String(pageNum - 1));
