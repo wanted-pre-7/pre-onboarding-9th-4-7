@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useSearchParams } from "react-router-dom";
 
-const DROPDOWN_OPTIONS = ["True", "False"];
+export const DROPDOWN_OPTIONS = ["True", "False"];
 
 const FilterDropdown = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -16,7 +16,11 @@ const FilterDropdown = () => {
       <select onChange={changeSelectHandler} id="status-select">
         <option value="">-- Status: All --</option>
         {DROPDOWN_OPTIONS.map((option) => (
-          <option key={option} value={option}>
+          <option
+            key={option}
+            value={option}
+            selected={option === searchParams.get("status")}
+          >
             {option}
           </option>
         ))}
