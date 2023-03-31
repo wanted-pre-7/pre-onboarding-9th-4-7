@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { useSearchParams } from "react-router-dom";
-import { DROPDOWN_OPTIONS } from "../constants";
+
+const DROPDOWN_OPTIONS = ["True", "False"];
 
 const FilterDropdown = () => {
   const [searchParams, setSearchParams] = useSearchParams();

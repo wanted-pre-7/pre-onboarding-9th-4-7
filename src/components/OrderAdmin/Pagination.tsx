@@ -1,6 +1,6 @@
 import { Button } from "@chakra-ui/react";
 import { useEffect } from "react";
-import type { IPropsPagination } from "../types";
+import type { IPropsPagination } from "../../types";
 
 const Pagination = ({
   totalPageCount,
@@ -9,6 +9,7 @@ const Pagination = ({
   setPageNum,
 }: IPropsPagination) => {
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (pageNum > totalPageCount) {
       searchParams.set("page", String(totalPageCount));
       setPageNum(searchParams);
@@ -26,7 +27,6 @@ const Pagination = ({
   };
 
   const numberBtnHandler = (index: number) => {
-    window.scrollTo(0, 0);
     searchParams.set("page", String(index + 1));
     setPageNum(searchParams);
   };
