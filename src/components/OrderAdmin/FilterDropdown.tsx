@@ -13,14 +13,14 @@ const FilterDropdown = () => {
 
   return (
     <SelectWrapper>
-      <select onChange={changeSelectHandler} id="status-select">
+      <select
+        onChange={changeSelectHandler}
+        id="status-select"
+        value={searchParams.get("status") || ""}
+      >
         <option value="">-- Status: All --</option>
         {DROPDOWN_OPTIONS.map((option) => (
-          <option
-            key={option}
-            value={option}
-            selected={option === searchParams.get("status") || undefined}
-          >
+          <option key={option} value={option}>
             {option}
           </option>
         ))}
