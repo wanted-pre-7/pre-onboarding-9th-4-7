@@ -2,11 +2,10 @@ import {
   Table as ChakraTable,
   TableContainer,
   Tbody,
-  Td,
   Thead,
-  Tr,
 } from "@chakra-ui/react";
 import type { IPropsTable } from "../../types";
+import TableBody from "./TableBody";
 import TableHeader from "./TableHeader";
 
 const Table = ({ headers, items }: IPropsTable) => {
@@ -18,16 +17,7 @@ const Table = ({ headers, items }: IPropsTable) => {
         </Thead>
 
         <Tbody>
-          {items.map((item, idx) => (
-            <Tr key={idx}>
-              {headers.map((header) => (
-                <Td key={header + idx}>
-                  {/* todo : fix type error */}
-                  {String(item[header])}
-                </Td>
-              ))}
-            </Tr>
-          ))}
+          <TableBody headers={headers} items={items} />
         </Tbody>
       </ChakraTable>
     </TableContainer>
