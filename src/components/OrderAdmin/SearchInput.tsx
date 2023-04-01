@@ -15,7 +15,7 @@ const SearchInput = () => {
       onChange={searchInputHandler}
       width="lg"
       mr={8}
-      value={searchParams?.get("name") as string}
+      value={(searchParams?.get("name") as string) || ""}
     />
   );
 };

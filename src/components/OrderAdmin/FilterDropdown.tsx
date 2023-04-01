@@ -19,7 +19,7 @@ const FilterDropdown = () => {
           <option
             key={option}
             value={option}
-            selected={option === searchParams.get("status")}
+            selected={option === searchParams.get("status") || undefined}
           >
             {option}
           </option>
