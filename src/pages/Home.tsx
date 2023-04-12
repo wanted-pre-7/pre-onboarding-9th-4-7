@@ -7,36 +7,21 @@ import useInput from "../lib/hooks/useInput";
 import usePagination from "../lib/hooks/usePagination";
 
 import useTransactionQuery from "../lib/hooks/useTransactionQuery";
+import filterTransactions from "../lib/utils/filterTransactions";
 import trimValue from "../lib/utils/trimValue";
 import type { ITransaction } from "../types/transaction";
 
-interface IOptions {
-  status: string;
-  name: string;
-  time: string;
-  order: string;
-}
-
 const Home = () => {
   const { data } = useTransactionQuery();
-  let transactions = data as ITransaction[];
+  const transactions = data as ITransaction[];
 
   const { order, time, status } = usePagination();
   const [searchParams, setSearchParams] = useSearchParams();
   const [value, onChange] = useInput("");
-  // const [value, setValue] = useState("");
-
-  // const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { value } = e.target;
-
-  //   setValue(value);
-  //   setSearchParams({ name: value });
-  // };
 
   const name = searchParams.get("name") as string;
 
-  console.log(name);
-  console.log(searchParams);
+  const options = { status, name, time, order, value };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -49,59 +34,59 @@ const Home = () => {
     });
   };
 
-  switch (status) {
-    case "true":
-      transactions = transactions.filter(
-        (transaction) => transaction.status === true,
-      );
-      break;
-    case "false":
-      transactions = transactions.filter(
-        (transaction) => transaction.status === false,
-      );
-      break;
-  }
+  // switch (status) {
+  //   case "true":
+  //     transactions = transactions.filter(
+  //       (transaction) => transaction.status === true,
+  //     );
+  //     break;
+  //   case "false":
+  //     transactions = transactions.filter(
+  //       (transaction) => transaction.status === false,
+  //     );
+  //     break;
+  // }
 
-  if (name === value) {
-    transactions = transactions.filter((transaction) =>
-      trimValue(transaction.customer_name).includes(trimValue(name)),
-    );
-  }
+  // if (name === value) {
+  //   transactions = transactions.filter((transaction) =>
+  //     trimValue(transaction.customer_name).includes(trimValue(name)),
+  //   );
+  // }
 
-  switch (time) {
-    case "desc":
-      transactions = transactions.sort(
-        (a, b) =>
-          new Date(b.transaction_time).getTime() -
-          new Date(a.transaction_time).getTime(),
-      );
-      break;
-    case "asce":
-      transactions = transactions.sort(
-        (a, b) =>
-          new Date(a.transaction_time).getTime() -
-          new Date(b.transaction_time).getTime(),
-      );
-      break;
-  }
+  // switch (time) {
+  //   case "desc":
+  //     transactions = transactions.sort(
+  //       (a, b) =>
+  //         new Date(b.transaction_time).getTime() -
+  //         new Date(a.transaction_time).getTime(),
+  //     );
+  //     break;
+  //   case "asce":
+  //     transactions = transactions.sort(
+  //       (a, b) =>
+  //         new Date(a.transaction_time).getTime() -
+  //         new Date(b.transaction_time).getTime(),
+  //     );
+  //     break;
+  // }
 
-  switch (order) {
-    case "desc":
-      transactions = transactions.sort((a, b) => b.id - a.id);
-      break;
-    case "asce":
-      transactions = transactions.sort((a, b) => a.id - b.id);
-      break;
-  }
+  // switch (order) {
+  //   case "desc":
+  //     transactions = transactions.sort((a, b) => b.id - a.id);
+  //     break;
+  //   case "asce":
+  //     transactions = transactions.sort((a, b) => a.id - b.id);
+  //     break;
+  // }
 
   const pageNumber = transactions && Math.ceil(transactions?.length / LIMIT);
-
+  const filterdTransactions = filterTransactions(transactions, options);
   return (
     <div className="flex flex-col max-w-7xl mx-auto">
       <div className="sm:-mx-6 lg:-mx-8">
         <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
           <div className="overflow-hidden">
-            <Table transactions={transactions as ITransaction[]} />
+            <Table transactions={filterdTransactions} />
           </div>
         </div>
       </div>
