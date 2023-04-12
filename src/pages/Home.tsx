@@ -9,6 +9,14 @@ import usePagination from "../lib/hooks/usePagination";
 import useTransactionQuery from "../lib/hooks/useTransactionQuery";
 import trimValue from "../lib/utils/trimValue";
 import type { ITransaction } from "../types/transaction";
+
+interface IOptions {
+  status: string;
+  name: string;
+  time: string;
+  order: string;
+}
+
 const Home = () => {
   const { data } = useTransactionQuery();
   let transactions = data as ITransaction[];
@@ -16,8 +24,19 @@ const Home = () => {
   const { order, time, status } = usePagination();
   const [searchParams, setSearchParams] = useSearchParams();
   const [value, onChange] = useInput("");
+  // const [value, setValue] = useState("");
+
+  // const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { value } = e.target;
+
+  //   setValue(value);
+  //   setSearchParams({ name: value });
+  // };
 
   const name = searchParams.get("name") as string;
+
+  console.log(name);
+  console.log(searchParams);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,40 +49,49 @@ const Home = () => {
     });
   };
 
-  if (order === "desc") {
-    transactions = [...transactions].sort((a, b) => b.id - a.id);
-  } else if (order === "asce") {
-    transactions = [...transactions].sort((a, b) => a.id - b.id);
+  switch (status) {
+    case "true":
+      transactions = transactions.filter(
+        (transaction) => transaction.status === true,
+      );
+      break;
+    case "false":
+      transactions = transactions.filter(
+        (transaction) => transaction.status === false,
+      );
+      break;
   }
 
-  if (time === "desc") {
-    transactions = [...transactions].sort(
-      (a, b) =>
-        new Date(b.transaction_time).getTime() -
-        new Date(a.transaction_time).getTime(),
-    );
-  } else if (time === "asce") {
-    transactions = [...transactions].sort(
-      (a, b) =>
-        new Date(a.transaction_time).getTime() -
-        new Date(b.transaction_time).getTime(),
-    );
-  } else transactions;
-
-  if (status === "true") {
-    transactions = [...transactions].filter(
-      (transaction) => transaction.status === true,
-    );
-  } else if (status === "false") {
-    transactions = [...transactions].filter(
-      (transaction) => transaction.status === false,
-    );
-  } else transactions;
-
   if (name === value) {
-    transactions = [...transactions].filter((transaction) =>
+    transactions = transactions.filter((transaction) =>
       trimValue(transaction.customer_name).includes(trimValue(name)),
     );
+  }
+
+  switch (time) {
+    case "desc":
+      transactions = transactions.sort(
+        (a, b) =>
+          new Date(b.transaction_time).getTime() -
+          new Date(a.transaction_time).getTime(),
+      );
+      break;
+    case "asce":
+      transactions = transactions.sort(
+        (a, b) =>
+          new Date(a.transaction_time).getTime() -
+          new Date(b.transaction_time).getTime(),
+      );
+      break;
+  }
+
+  switch (order) {
+    case "desc":
+      transactions = transactions.sort((a, b) => b.id - a.id);
+      break;
+    case "asce":
+      transactions = transactions.sort((a, b) => a.id - b.id);
+      break;
   }
 
   const pageNumber = transactions && Math.ceil(transactions?.length / LIMIT);
